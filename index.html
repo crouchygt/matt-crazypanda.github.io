@@ -1,35 +1,50 @@
 <!DOCTYPE html>
+<html>
 <head>
 	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
 	<meta name="twitter:card" content="player">
 	<meta name="twitter:site" content="@rchoi">
 	<meta name="twitter:title" content="Sample Player Card">
-	<meta name="twitter:description" content="This is a sample streaming video. When you implement, make sure all links are secure.">
-	<meta name="twitter:image" content="https://matt-crazypanda.github.io/example.png">
-	<meta name="twitter:player" content="https://matt-crazypabda.github.io/container.html">
-	
-	<meta name="twitter:player:width" content="480">
-	<meta name="twitter:player:height" content="480">
-  <meta name="twitter:player:stream" content="http://vod-hls-uk-live.edgesuite.net/usp/auth/vod/piff_abr_full_hd/7e3d32-p0353spc/vf_p0353spc_26b47a18-25e7-48e3-bce8-721bed47fa01.ism/mobile_wifi_main_sd_abr_v1_hls_master.m3u8?__gda__=1446664775_457891fa7073ba5a8194dff3f707125d">
-  <meta name="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">
-
+	<meta name="twitter:description" content="SMP Streaming">
+  <style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  </style>
 </head>
-<html>
 <body>
-
-  This page has meta tags showcasing the Twitter Player Card with streaming M3U8 content. The streaming video is courtesy of Apple, and you can find more information here: https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/DeployingHTTPLiveStreaming/DeployingHTTPLiveStreaming.html  
-
-  <br><br>
-
-  When implemented on your own site, please ensure that all links to video are secure (use https).
-
-  <br><br>
-
-  Lastly, the behavior of streaming video is currently different across mobile platforms. Specifically:
-
-  <ul>
-  <li>On iOS, the stream will play inline in the Twitter Card.
-  <li>On Android, the stream will open the twitter:player URL in a browser  
-  </ul>
+  
+  <div id="player"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      require.config({
+        paths: {
+          "bump-3": "https://emp.bbci.co.uk/emp/bump-3/bump-3",
+          "jquery-1.9":"https://static.bbc.co.uk/frameworks/jquery/0.3.0/sharedmodules/jquery-1.9.1",
+          "swfobject-2":"https://static.bbc.co.uk/frameworks/swfobject/0.1.10/sharedmodules/swfobject-2"
+        }
+      });
+      require(['bump-3'], function(bump) {
+        console.log(bump);
+        bump(document.getElementById('player')).player({
+          product: 'sport',
+          delayEmbed: true,
+          appName: 'sport-hack',
+          appType: 'web',
+          playlistObject: {
+            title: 'Addicted to Dating Apps',
+            holdingImageURL: 'http://ichef.bbci.co.uk/images/ic/$recipe/p0369bg5.jpg',
+            items: [{
+              vpid: 'p0353spc',
+              kind: 'episode'
+            }]
+          },
+          superResponsive: true
+        }).load();
+      });
+    });
+  </script>
 </body>
 </html>
